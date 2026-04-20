@@ -1,0 +1,69 @@
+<routes>
+    <!-- Vehicle types -->
+    <vType id="car" accel="2.6" decel="4.5" sigma="0.4" length="5"
+           minGap="2.5" maxSpeed="13.89" color="0,0,1" vClass="passenger" emergencyDecel="4.50"/>
+
+    <vType id="bus" accel="1.2" decel="3.0" sigma="0.3" length="12"
+           minGap="3.0" maxSpeed="11.11" color="0.8,0.5,0" vClass="bus"/>
+
+    <vType id="ambulance" accel="3.0" decel="6.0" sigma="0.0" length="6"
+           minGap="1.0" maxSpeed="16.67" color="1,1,1" vClass="emergency"
+           guiShape="emergency" speedFactor="1.45" lcStrategic="0" lcCooperative="0"
+           lcSpeedGain="1000" emergencyDecel="9.0"/>
+
+    <vType id="police" accel="3.5" decel="6.5" sigma="0.0" length="5"
+           minGap="1.0" maxSpeed="19.44" color="0,0,0.6" vClass="emergency"
+           guiShape="police" speedFactor="1.45" lcStrategic="0" lcCooperative="0"
+           lcSpeedGain="1000" emergencyDecel="9.0"/>
+
+    <vType id="fire_truck" accel="2.0" decel="5.0" sigma="0.0" length="9"
+           minGap="1.5" maxSpeed="14.0" color="1,0.3,0" vClass="emergency"
+           guiShape="firebrigade" speedFactor="1.35" lcStrategic="0" lcCooperative="0"
+           lcSpeedGain="1000" emergencyDecel="9.0"/>
+
+    <!-- Directional routes (all incoming edges can exit via other 3 sides) -->
+    <route id="r_top_to_right"   edges="top0A0 A0right0"/>
+    <route id="r_top_to_bottom"  edges="top0A0 A0bottom0"/>
+    <route id="r_top_to_left"    edges="top0A0 A0left0"/>
+
+    <route id="r_right_to_bottom" edges="right0A0 A0bottom0"/>
+    <route id="r_right_to_left"   edges="right0A0 A0left0"/>
+    <route id="r_right_to_top"    edges="right0A0 A0top0"/>
+
+    <route id="r_bottom_to_left"  edges="bottom0A0 A0left0"/>
+    <route id="r_bottom_to_top"   edges="bottom0A0 A0top0"/>
+    <route id="r_bottom_to_right" edges="bottom0A0 A0right0"/>
+
+    <route id="r_left_to_top"    edges="left0A0 A0top0"/>
+    <route id="r_left_to_right"  edges="left0A0 A0right0"/>
+    <route id="r_left_to_bottom" edges="left0A0 A0bottom0"/>
+
+    <!-- Moderate background traffic from all directions -->
+    <!-- Slightly lighter traffic + calmer drivers (sigma) reduces emergency-braking warnings -->
+    <flow id="flow_top_to_right"    type="car" route="r_top_to_right" begin="0" end="520" number="8" departLane="best" departSpeed="10"/>
+    <flow id="flow_top_to_bottom"   type="car" route="r_top_to_bottom" begin="0" end="520" number="7" departLane="best" departSpeed="10"/>
+    <flow id="flow_top_to_left"     type="car" route="r_top_to_left" begin="0" end="520" number="6" departLane="best" departSpeed="10"/>
+
+    <flow id="flow_right_to_bottom" type="car" route="r_right_to_bottom" begin="0" end="520" number="8" departLane="best" departSpeed="10"/>
+    <flow id="flow_right_to_left"   type="car" route="r_right_to_left" begin="0" end="520" number="7" departLane="best" departSpeed="10"/>
+    <flow id="flow_right_to_top"    type="car" route="r_right_to_top" begin="0" end="520" number="6" departLane="best" departSpeed="10"/>
+
+    <flow id="flow_bottom_to_left"  type="car" route="r_bottom_to_left" begin="0" end="520" number="8" departLane="best" departSpeed="10"/>
+    <flow id="flow_bottom_to_top"   type="car" route="r_bottom_to_top" begin="0" end="520" number="7" departLane="best" departSpeed="10"/>
+    <flow id="flow_bottom_to_right" type="car" route="r_bottom_to_right" begin="0" end="520" number="6" departLane="best" departSpeed="10"/>
+
+    <flow id="flow_left_to_top"     type="car" route="r_left_to_top" begin="0" end="520" number="8" departLane="best" departSpeed="10"/>
+    <flow id="flow_left_to_right"   type="car" route="r_left_to_right" begin="0" end="520" number="7" departLane="best" departSpeed="10"/>
+    <flow id="flow_left_to_bottom"  type="car" route="r_left_to_bottom" begin="0" end="520" number="6" departLane="best" departSpeed="10"/>
+
+    <!-- Vehicles sorted by depart time (SUMO requirement) -->
+    <vehicle id="bus1" type="bus" depart="50"  departLane="best" departSpeed="8" route="r_bottom_to_top"/>
+    <vehicle id="amb1"  type="ambulance" depart="100" departLane="best" departPos="last" departSpeed="max" route="r_left_to_right"/>
+    <vehicle id="pol1"  type="police"    depart="220" departLane="best" departPos="last" departSpeed="max" route="r_right_to_left"/>
+    <vehicle id="bus2" type="bus" depart="225" departLane="best" departSpeed="8" route="r_right_to_left"/>
+    <vehicle id="fire1" type="fire_truck" depart="360" departLane="best" departPos="last" departSpeed="max" route="r_top_to_bottom"/>
+    <vehicle id="bus3" type="bus" depart="410" departLane="best" departSpeed="8" route="r_left_to_right"/>
+    <vehicle id="amb2"  type="ambulance" depart="500" departLane="best" departPos="last" departSpeed="max" route="r_bottom_to_top"/>
+    <vehicle id="pol2"  type="police"    depart="640" departLane="best" departPos="last" departSpeed="max" route="r_top_to_left"/>
+    <vehicle id="fire2" type="fire_truck" depart="780" departLane="best" departPos="last" departSpeed="max" route="r_right_to_bottom"/>
+</routes>
